@@ -1,16 +1,16 @@
 import React from "react";
-import styles from "../ContactForm/ContactForm.module.css";
+import styles from "./ContactList.module.css";
 
 export default function ContactList({ contacts, onRemoveContact }) {
   return (
-    <ul style={{ padding: 0 }}>
+    <ul className={styles.ContactList}>
       {contacts.length > 0 ? (
         contacts.map((contact) => (
-          <li key={contact.id}>
+          <li className={styles.ContactItem} key={contact.id}>
             {contact.name}: {contact.number}
             <button
               id={contact.id}
-              className={styles.ContactFormButton}
+              className="Button"
               type="submit"
               onClick={onRemoveContact}
             >

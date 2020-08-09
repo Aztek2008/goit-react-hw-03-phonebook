@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styles from "./ContactForm.module.css";
 import "../../index.css";
+import NumberFormat from "react-number-format";
 import { v4 as uuidv4 } from "uuid";
 
 export default class ContactForm extends Component {
@@ -44,17 +45,20 @@ export default class ContactForm extends Component {
             value={this.state.name}
             onChange={this.handleChange}
             name="name"
+            placeholder="Name..."
             autoFocus
           />
         </label>
 
         <label>
           <p>Number</p>
-          <input
-            type="tel"
+          <NumberFormat
+            format="(###) ###-####"
+            mask=""
             name="number"
-            value={this.state.number}
+            placeholder="Phone Number..."
             onChange={this.handleChange}
+            value={this.state.number}
           />
         </label>
 

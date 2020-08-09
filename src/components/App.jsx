@@ -10,17 +10,37 @@ class App extends Component {
     filter: "",
   };
 
+  componentDidMount() {
+    const persistedContacts = localStorage.getItem("contacts");
+    persistedContacts &&
+      this.setState({ contacts: JSON.parse(persistedContacts) });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      this.setLocalStorage();
+    }
+  }
+
   addContact = (contact) => {
     this.setState((prevState) => {
       const existedContacts = prevState.contacts.map((cont) => cont.name);
       const newName = contact.name;
+      const newNumber = contact.number;
       // PREVENT SAVING SAME CONTACT
       return {
-        contacts: !existedContacts.includes(newName)
-          ? [...prevState.contacts, contact]
-          : prevState.contacts,
+        contacts:
+          existedContacts.includes(newName) ||
+          newName === "" ||
+          newNumber === ""
+            ? prevState.contacts
+            : [...prevState.contacts, contact],
       };
     });
+  };
+
+  setLocalStorage = () => {
+    localStorage.setItem("contacts", JSON.stringify(this.state.contacts));
   };
 
   removeContact = (e) => {
